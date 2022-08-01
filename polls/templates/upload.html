@@ -1,0 +1,27 @@
+<form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+
+        <input type="file" name="file">
+        {% csrf_token %}
+        <input type="submit" value="Upload">
+</form>
+
+<table>
+        <tr>
+            <th>ID</th>
+            <th>Code</th>
+            <th>Index</th>
+            <th>Title</th>
+            <th>File Path</th>
+            <th>Upload Date & Time</th>
+        </tr>
+        {% for file in files %}
+            <tr>
+                <td>{{ file.id }}</td>
+                <td>{{ file.code }}</td>
+                <td>{{ file.index }}</td>
+                <td>{{ file.file.name }}</td>
+                <td>{{ file.file.url }}</td>
+                <td>{{ file.time }}</td>
+            </tr>
+        {% endfor %}
+    </table>

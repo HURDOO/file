@@ -1,0 +1,6 @@
+<form action="{% url 'download' %}" method="POST" enctype="multipart/form-data">
+
+        <input type="number" name="code" min="0" max="999999">
+        {% csrf_token %}
+        <input type="submit" value="Download">
+</form>
