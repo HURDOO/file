@@ -1,11 +1,32 @@
-<form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html lang="ko">
 
-        <input type="file" name="file">
-        {% csrf_token %}
-        <input type="submit" value="Upload">
-</form>
+<head>
+    <link rel="icon" href="/static/logo.svg">
+    <link rel="stylesheet" href="/static/mvp.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
 
-<table>
+    <style>
+            --font-family: NanumBarunGothic, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>File.gq</title>
+</head>
+
+<body>
+    <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+
+            <input type="file" name="file">
+            {% csrf_token %}
+            <input type="submit" value="Upload">
+    </form>
+
+    <table>
         <tr>
             <th>ID</th>
             <th>Code</th>
@@ -25,3 +46,4 @@
             </tr>
         {% endfor %}
     </table>
+</body>
