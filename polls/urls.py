@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('upload', views.upload, name='upload'),
     path('download', views.download, name='download'),
+    path('code', views.code_page, name='code'),
 ]
 
 if settings.DEBUG:

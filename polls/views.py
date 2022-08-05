@@ -1,8 +1,9 @@
 import random
 import uuid
 import os
+from urllib import parse
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.http import FileResponse
 from django.core.files.storage import FileSystemStorage
@@ -15,21 +16,20 @@ class IndexView(generic.TemplateView):
 
 
 def upload(request):
+    code = genCode()
     if request.method == "POST":
         file = request.FILES["file"]
 
         uploadfile = models.Upload(
-            code=genCode(),
+            code=code,
             index=genIndex(),
             file=file
         )
         uploadfile.save()
 
-    files = models.Upload.objects.all()
+        return redirect("/code?code=" + str(code))
 
-    return render(request, "upload.html", context={
-        "files": files
-    })
+    return render(request, "upload.html")
 
 
 def download(request):
@@ -41,7 +41,7 @@ def download(request):
         fs = FileSystemStorage(file_path)
 
         response = FileResponse(fs.open(file_path, 'rb'), content_type='multipart/form-data;')
-        response['Content-Disposition'] = f'attachment; filename={thing.file.name}'
+        response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % parse.quote(thing.file.name)
 
         return response
     return render(request, "download.html")
@@ -59,3 +59,12 @@ def genIndex():
     while models.Upload.objects.filter(index=index).exists():
         index = uuid.uuid4()
     return index
+
+
+def code_page(request):
+    code = request.GET['code']
+
+    return render(request, "code_page.html", context={
+        "code": code,
+        "qr_url": "https://chart.googleapis.com/chart?cht=qr&chs=400x400&chl=https://file.gq/download?code=" + code
+    })
