@@ -24,11 +24,28 @@
             <a href="/"><h1 id="logo">File.gq</h1></a>
             <h1>파일 내려받기</h1>
             <form action="{% url 'download' %}" method="POST" enctype="multipart/form-data">
-                <input type="number" name="code" min="0" max="999999" placeholder="6자리 코드 입력" autocomplete="off" autofocus>
+                <input type="number" id="code" name="code" min="0" max="999999" placeholder="6자리 코드 입력" autocomplete="off" autofocus>
                 {% csrf_token %}
-                <input type="submit" value="다운로드">
+                <input type="submit" id="download" value="다운로드">
             </form>
         </main>
     </header>
 </body>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    console.log(params);
+    if(params.has('code')) {
+        const code = params.get('code');
+        document.getElementById('code').value = parseInt(code);
+        document.getElementById('download').click();
+
+        // hide code
+        setTimeout(() => {
+            document.getElementById('code').value = '';
+            window.location.search = '';
+        }, 500);
+    }
+    else console.log('no code');
+</script>
 

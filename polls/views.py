@@ -34,17 +34,19 @@ def upload(request):
 
 def download(request):
     if request.method == "POST":
-        code = request.POST['code']
+        return getFileResponse(request.POST['code'])
 
-        thing = models.Upload.objects.filter(code=int(code))[0]
-        file_path = thing.file.path
-        fs = FileSystemStorage(file_path)
-
-        response = FileResponse(fs.open(file_path, 'rb'), content_type='multipart/form-data;')
-        response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % parse.quote(thing.file.name)
-
-        return response
     return render(request, "download.html")
+
+
+def getFileResponse(code):
+    thing = models.Upload.objects.filter(code=int(code))[0]
+    file_path = thing.file.path
+    fs = FileSystemStorage(file_path)
+
+    response = FileResponse(fs.open(file_path, 'rb'), content_type='multipart/form-data;')
+    response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % parse.quote(thing.file.name)
+    return response
 
 
 def genCode():
