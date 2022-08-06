@@ -1,6 +1,34 @@
-<form action="{% url 'download' %}" method="POST" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html lang="ko">
 
-        <input type="number" name="code" min="0" max="999999">
-        {% csrf_token %}
-        <input type="submit" value="Download">
-</form>
+<head>
+    <link rel="icon" href="/static/logo.svg">
+    <link rel="stylesheet" href="/static/mvp.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-barun-gothic.css" rel="stylesheet">
+
+    <style>
+            --font-family: NanumBarunGothic, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="description" content="My description">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>File.gq</title>
+</head>
+
+<body>
+    <header>
+        <main>
+            <a href="/"><h1 id="logo">File.gq</h1></a>
+            <h1>파일 내려받기</h1>
+            <form action="{% url 'download' %}" method="POST" enctype="multipart/form-data">
+                <input type="number" name="code" min="0" max="999999" placeholder="6자리 코드 입력" autocomplete="off" autofocus>
+                {% csrf_token %}
+                <input type="submit" value="다운로드">
+            </form>
+        </main>
+    </header>
+</body>
+

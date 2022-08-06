@@ -19,13 +19,16 @@
 </head>
 
 <body>
-    <main>
-        <h1>파일 업로드</h1>
-        <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
+    <header>
+        <main>
+            <a href="/"><h1 id="logo">File.gq</h1></a>
+            <h1>파일 올리기</h1>
+            <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
 
-                <input type="file" name="file">
-                {% csrf_token %}
-                <input type="submit" value="Upload">
-        </form>
-    </main>
+                    <input type="file" name="file">
+                    {% csrf_token %}
+                    <input type="submit" value="업로드">
+            </form>
+        </main>
+    </header>
 </body>
