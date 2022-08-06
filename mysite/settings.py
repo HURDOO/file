@@ -24,7 +24,7 @@ SECRET_KEY = 'po%fjds2+0bw6ze(dlzug1^o!k*$n^^!p3p-h0b@krqrc&_c*='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'file.gq']
+ALLOWED_HOSTS = ['127.0.0.1', 'file.gq', 'file-app.azurewebsites.net']
 
 # Application definition
 
