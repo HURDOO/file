@@ -25,9 +25,10 @@
             <h1>파일 올리기</h1>
             <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
 
-                    <input type="file" name="file">
-                    {% csrf_token %}
-                    <input type="submit" value="업로드">
+                <input type="file" name="file">
+                {% csrf_token %}
+                <input type="submit" value="업로드">
+
             </form>
         </main>
     </header>

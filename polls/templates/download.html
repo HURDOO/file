@@ -41,10 +41,13 @@
         document.getElementById('download').click();
 
         // hide code
-        setTimeout(() => {
+        /*setTimeout(() => {
             document.getElementById('code').value = '';
-            window.location.search = '';
-        }, 500);
+            location.replace('/download');
+        }, 500);*/
+        history.replaceState(null, '', '/download');
+        //location.replace('/download');
+
     }
     else console.log('no code');
 </script>
