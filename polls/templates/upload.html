@@ -26,6 +26,7 @@
             <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data">
 
                 <input type="file" name="file">
+                <span title="다운로드 횟수를 1회로 제한합니다"><input type="checkbox" name="temporary" checked>1회용 링크 생성</span>
                 {% csrf_token %}
                 <input type="submit" value="업로드">
 

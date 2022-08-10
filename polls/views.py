@@ -19,10 +19,12 @@ def upload(request):
     code = genCode()
     if request.method == "POST":
         file = request.FILES["file"]
+        temporary = request.POST.getlist('temporary')
 
         uploadfile = models.Upload(
             code=code,
             index=genIndex(),
+            temporary=len(temporary),
             file=file
         )
         uploadfile.save()
@@ -42,10 +44,14 @@ def download(request):
 def getFileResponse(code):
     thing = models.Upload.objects.filter(code=int(code))[0]
     file_path = thing.file.path
+    file_name = thing.file.name
     fs = FileSystemStorage(file_path)
 
+    if thing.temporary:
+        thing.delete()
+
     response = FileResponse(fs.open(file_path, 'rb'), content_type='multipart/form-data;')
-    response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % parse.quote(thing.file.name)
+    response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % parse.quote(file_name)
     return response
 
 
