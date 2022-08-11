@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'po%fjds2+0bw6ze(dlzug1^o!k*$n^^!p3p-h0b@krqrc&_c*='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'file.gq', 'www.file.gq', 'file-app.azurewebsites.net']
 
@@ -116,5 +116,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'polls/static')
 
-MEDIA_URL = '/.well-known/pki-validation/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
