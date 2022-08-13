@@ -29,20 +29,27 @@ def upload(request):
         )
         uploadfile.save()
 
-        return redirect("/code?code=" + str(code))
+        return redirect("/code?code=" + format(code, '06')) # 0으로 6자리 채우기
 
     return render(request, "upload.html")
 
 
 def download(request):
     if request.method == "POST":
-        return getFileResponse(request.POST['code'])
+        file_exists, file_response = getFileResponse(request.POST['code'])
+        if file_exists:
+            return file_response
+        else:
+            return render(request, 'download.html')
 
     return render(request, "download.html")
 
 
 def getFileResponse(code):
-    thing = models.Upload.objects.filter(code=int(code))[0]
+    files = models.Upload.objects.filter(code=int(code))
+    if not files.exists():
+        return False, {}
+    thing = files[0]
     file_path = thing.file.path
     file_name = thing.file.name
     fs = FileSystemStorage(file_path)
@@ -52,7 +59,7 @@ def getFileResponse(code):
 
     response = FileResponse(fs.open(file_path, 'rb'), content_type='multipart/form-data;')
     response['Content-Disposition'] = 'attachment; filename*=UTF-8\'\'%s' % parse.quote(file_name)
-    return response
+    return True, response
 
 
 def genCode():
